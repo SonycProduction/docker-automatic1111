@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
 #   image: custom name image:tag if required
+    environment:
+#     - CLI_ARGS=--listen --medvram --xformers --enable-insecure-extension-access --api --allow-code --administrator
     container_name: automatic1111
     restart: unless-stopped
     ports:

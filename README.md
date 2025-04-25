@@ -84,9 +84,9 @@ git clone https://github.com/SonycProduction/docker-automatic1111.git
 ### Option 1 (Build and deploy in a single command - Recommended)
 #### Build and deploy the container in a single command. WebUI is available on port `7860`. Required folders are mapped in current location.
 ```
-sudo docker-compose up --build
+sudo docker compose up --build
 ```
-`docker-compose.yml` file can be modified to change folder locations and access port for webui. Automatic1111 WebUI starts with following commandline arguments enabled: `--listen --api --allow-code --administrator`
+`docker-compose.yml` file can be modified to change folder locations and access port for webui. Automatic1111 WebUI starts with following commandline arguments enabled: `--listen --medvram --xformers --enable-insecure-extension-access --api --allow-code --administrator`
 
 ### Option 2 (Manually building image):
 #### 1.  Build image using Dockerfile

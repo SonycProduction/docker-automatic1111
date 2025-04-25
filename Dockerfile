@@ -1,7 +1,7 @@
 # Use an Ubuntu 22.04 base image with CUDA 12.6 support
 FROM nvidia/cuda:12.6.2-base-ubuntu22.04
 
-# Install dependencies and Python 3.10.6
+# Install dependencies and Python 3.10
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     build-essential \
@@ -13,19 +13,11 @@ RUN apt-get update && apt-get install -y \
     libgoogle-perftools-dev \
     python3.10-venv \
     libgl1-mesa-glx \
-    && rm -rf /var/lib/apt/lists/*
+    python3-pip
 
-# Add deadsnakes repository to install Python 3.10
-RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y \
-    python3.10 \
-    python3.10-dev \
-    python3.10-distutils \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install pip for Python 3.10
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3.10 get-pip.py && \
-    rm get-pip.py
+# Install Python packages
+RUN python3.10 -m pip install --upgrade pip
+RUN python3.10 -m pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --extra-index-url https://download.pytorch.org/whl/cu121
 
 # Create a non-root user and set a password as "default"
 RUN useradd -ms /bin/bash appuser && \
@@ -57,6 +49,9 @@ RUN echo "export PATH=/usr/bin/python3.10:/usr/local/bin:$PATH" >> /home/appuser
 
 # Switch to the non-root user
 USER appuser
+
+# Create outputs directory
+RUN mkdir -p /app/outputs && chown -R appuser:appuser /app/outputs
 
 # Set the default command to run your script
 CMD ["bash", "webui.sh"]

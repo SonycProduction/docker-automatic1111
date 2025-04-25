@@ -41,7 +41,7 @@ WORKDIR /app
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /app
 
 # Modify the webui-user.sh file to add COMMANDLINE_ARGS
-RUN sed -i 's|#export COMMANDLINE_ARGS=""|export COMMANDLINE_ARGS="--listen --api --allow-code --administrator"|' /app/webui-user.sh
+RUN sed -i 's|#export COMMANDLINE_ARGS=""|export COMMANDLINE_ARGS="--listen --medvram --xformers --enable-insecure-extension-access --api --allow-code --administrator"|' /app/webui-user.sh
 
 # Grant sudo privileges to appuser
 RUN echo "appuser ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/appuser

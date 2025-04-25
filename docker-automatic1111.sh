@@ -10,4 +10,4 @@ git clone https://github.com/SonycProduction/docker-automatic1111.git
 cd docker-automatic1111
 
 # Run build and start for container
-sudo docker-compose up --build
+sudo docker compose up --build

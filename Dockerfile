@@ -51,7 +51,7 @@ RUN echo "export PATH=/usr/bin/python3.10:/usr/local/bin:$PATH" >> /home/appuser
 USER appuser
 
 # Create outputs directory
-RUN mkdir -p /app/outputs && chown -R appuser:appuser /app/outputs
+RUN mkdir -p /app/data/outputs && chown -R appuser:appuser /app/data/outputs
 
 # Set the default command to run your script
 CMD ["bash", "webui.sh"]

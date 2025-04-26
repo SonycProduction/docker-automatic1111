@@ -99,14 +99,14 @@ sudo docker build -t <image_name:tag>
 
 #### 2. Run the image built in previous step
 ```
-docker run -d \
+sudo docker run -d \
   --name automatic1111 \
   --restart unless-stopped \
   -p 7860:7860 \
-  -v ./data/models:/app/data/models \
-  -v ./data/extensions:/app/data/extensions \
-  -v ./data/embeddings:/app/data/embeddings \
-  -v ./data/outputs:/app/data/outputs \
+  -v ./models:/app/models \
+  -v ./extensions:/app/extensions \
+  -v ./embeddings:/app/embeddings \
+  -v ./outputs:/app/outputs \
   --runtime nvidia \
   --gpus all \
   --deploy-resources-reservations-devices 'driver=nvidia, count=all, capabilities=[gpu]' \

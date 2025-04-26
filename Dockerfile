@@ -1,23 +1,28 @@
-# Use an Ubuntu 22.04 base image with CUDA 12.6 support
+# Use an Ubuntu22.04 base image with CUDA12.6 support
 FROM nvidia/cuda:12.6.2-base-ubuntu22.04
 
-# Install dependencies and Python 3.10
+# Do not reinstall existing pip packages on Debian/Ubuntu
+ENV PIP_IGNORE_INSTALLED=1
+
+# Install dependencies and Python3.10
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    build-essential \
-    bash \
-    sudo \
-    git \
-    curl \
-    sed \
-    libgoogle-perftools-dev \
-    python3.10-venv \
-    libgl1-mesa-glx \
-    python3-pip
+ software-properties-common \
+ build-essential \
+ bash \
+ sudo \
+ git \
+ curl \
+ sed \
+ libgoogle-perftools-dev \
+ python3.10-venv \
+ libgl1-mesa-glx \
+ python3-pip
+
+# Copy requirements.txt
+COPY requirements.txt .
 
 # Install Python packages
-RUN python3.10 -m pip install --upgrade pip
-RUN python3.10 -m pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --extra-index-url https://download.pytorch.org/whl/cu121
+RUN python3.10 -m pip install --no-cache-dir -r requirements.txt
 
 # Create a non-root user and set a password as "default"
 RUN useradd -ms /bin/bash appuser && \
@@ -51,7 +56,8 @@ RUN echo "export PATH=/usr/bin/python3.10:/usr/local/bin:$PATH" >> /home/appuser
 USER appuser
 
 # Create outputs directory
-RUN mkdir -p /app/data/outputs && chown -R appuser:appuser /app/data/outputs
+RUN mkdir -p /app/outputs && chown -R appuser:appuser /app/outputs
 
 # Set the default command to run your script
 CMD ["bash", "webui.sh"]
+

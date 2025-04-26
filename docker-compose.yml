@@ -12,10 +12,10 @@ services:
     ports:
       - "7860:7860"
     volumes:
-      - ./data/models:/app/data/models
-      - ./data/extensions:/app/data/extensions
-      - ./data/embeddings:/app/data/embeddings
-      - ./data/outputs:/app/data/outputs
+      - ./models:/app/models
+      - ./extensions:/app/extensions
+      - ./embeddings:/app/embeddings
+      - ./outputs:/app/outputs
     runtime: nvidia
     deploy:
       resources:

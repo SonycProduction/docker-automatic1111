@@ -93,7 +93,7 @@ You can change the commandline arguments (e.g. `--lowvram --no-half --precision 
 #### 1.  Build image using Dockerfile
 
 ```
-sudo docker build -t <image_name:tag>
+sudo docker build -t <image_name:tag> .
 ```
 `<image_name:tag>` change it to user's image name.
 

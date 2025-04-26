@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   automatic1111:
     build:
